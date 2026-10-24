@@ -1,0 +1,536 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080808">
+    <meta name="description" content="Welcome to LAVEA — Web Development, Video Editing, and Creative Design.">
+    <title>LAVEA | Welcome</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink: #ff4fa3;
+            --light-pink: #ff9acb;
+            --black: #080808;
+        }
+
+        html {
+            min-height: 100%;
+            background: var(--black);
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--black);
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            position: relative;
+            isolation: isolate;
+        }
+
+        /* Elegant background */
+        .background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: -2;
+            background:
+                radial-gradient(
+                    ellipse at 50% 45%,
+                    rgba(255, 79, 163, 0.12),
+                    transparent 45%
+                ),
+                #080808;
+        }
+
+        .glow {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: var(--pink);
+            filter: blur(140px);
+            opacity: 0.13;
+            animation: glowMove 8s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        .glow.one {
+            top: -150px;
+            left: -100px;
+        }
+
+        .glow.two {
+            right: -150px;
+            bottom: -150px;
+            animation-delay: 2s;
+        }
+
+        .grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+            background-size: 55px 55px;
+            mask-image: linear-gradient(
+                to bottom,
+                transparent,
+                black,
+                transparent
+            );
+            -webkit-mask-image: linear-gradient(
+                to bottom,
+                transparent,
+                black,
+                transparent
+            );
+        }
+
+        /* Intro content */
+        .intro {
+            width: 90%;
+            max-width: 750px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: appear 1.2s ease forwards;
+        }
+
+        .small-label {
+            color: var(--light-pink);
+            font-size: 11px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: slideUp 0.8s ease 0.3s forwards;
+        }
+
+        .logo-wrap {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 22px;
+        }
+
+        .logo {
+            font-size: clamp(55px, 12vw, 100px);
+            font-weight: 800;
+            letter-spacing: 10px;
+            line-height: 1.1;
+            background: linear-gradient(
+                110deg,
+                #ffffff 20%,
+                #ff9acb 45%,
+                #ff4fa3 65%,
+                #ffffff 85%
+            );
+            background-size: 250% auto;
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            animation:
+                logoReveal 1.2s ease 0.5s both,
+                shine 5s linear 1.7s infinite;
+        }
+
+        .underline {
+            height: 2px;
+            width: 0;
+            margin: 15px auto 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--pink),
+                transparent
+            );
+            animation: lineGrow 1s ease 1.4s forwards;
+        }
+
+        .description {
+            color: #bdb4ba;
+            font-size: clamp(12px, 2.5vw, 15px);
+            letter-spacing: 3px;
+            line-height: 1.8;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: slideUp 0.8s ease 1.2s forwards;
+        }
+
+        .description span {
+            color: var(--pink);
+        }
+
+        .welcome {
+            margin-top: 38px;
+            color: #f4edf1;
+            font-size: 14px;
+            letter-spacing: 1px;
+            line-height: 1.8;
+            opacity: 0;
+            animation: slideUp 0.8s ease 1.6s forwards;
+        }
+
+        .welcome span {
+            color: var(--pink);
+        }
+
+        /* Explore Portfolio button */
+        .enter-button {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 13px;
+            margin-top: 30px;
+            padding: 15px 28px;
+            min-width: 190px;
+            min-height: 48px;
+            border: 1px solid rgba(255, 79, 163, 0.7);
+            border-radius: 3px;
+            background: rgba(255, 79, 163, 0.06);
+            color: white;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            overflow: hidden;
+            opacity: 0;
+            animation: slideUp 0.8s ease 1.9s forwards;
+            transition:
+                background 0.35s ease,
+                color 0.35s ease,
+                box-shadow 0.35s ease,
+                transform 0.35s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .enter-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -110%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                110deg,
+                transparent,
+                rgba(255, 79, 163, 0.25),
+                transparent
+            );
+            transition: left 0.5s;
+            pointer-events: none;
+        }
+
+        .enter-button:hover::before {
+            left: 110%;
+        }
+
+        .enter-button:hover {
+            background: var(--pink);
+            color: #080808;
+            box-shadow: 0 0 30px rgba(255, 79, 163, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .enter-button:focus-visible {
+            outline: 2px solid var(--light-pink);
+            outline-offset: 5px;
+        }
+
+        .arrow {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .enter-button:hover .arrow {
+            transform: translateX(5px);
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 25px;
+            left: 0;
+            width: 100%;
+            padding: 0 12px;
+            text-align: center;
+            color: #625a60;
+            font-size: 10px;
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: slideUp 0.8s ease 2.2s forwards;
+        }
+
+        .footer span {
+            color: var(--pink);
+        }
+
+        /* Floating decorative dots */
+        .dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--pink);
+            box-shadow: 0 0 12px var(--pink);
+            opacity: 0;
+            animation: float 5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .dot:nth-child(1) {
+            top: 25%;
+            left: 18%;
+            animation-delay: 0s;
+        }
+
+        .dot:nth-child(2) {
+            top: 70%;
+            left: 25%;
+            animation-delay: 1s;
+        }
+
+        .dot:nth-child(3) {
+            top: 30%;
+            right: 20%;
+            animation-delay: 2s;
+        }
+
+        .dot:nth-child(4) {
+            top: 75%;
+            right: 18%;
+            animation-delay: 1.5s;
+        }
+
+        .dot:nth-child(5) {
+            top: 50%;
+            right: 10%;
+            animation-delay: 0.5s;
+        }
+
+        /* Animations */
+        @keyframes appear {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes logoReveal {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+                letter-spacing: 22px;
+                filter: blur(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                letter-spacing: 10px;
+                filter: blur(0);
+            }
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 250% center;
+            }
+        }
+
+        @keyframes lineGrow {
+            to {
+                width: 75%;
+            }
+        }
+
+        @keyframes glowMove {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+            to {
+                transform: translate(80px, 50px) scale(1.25);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Mobile responsive layout */
+        @media (max-width: 600px) {
+            .intro {
+                width: 92%;
+                padding: 0 5px;
+            }
+
+            .small-label {
+                font-size: 9px;
+                letter-spacing: 3px;
+                margin-bottom: 23px;
+            }
+
+            .logo {
+                font-size: clamp(48px, 14vw, 76px);
+                letter-spacing: 5px;
+            }
+
+            .description {
+                font-size: 11px;
+                letter-spacing: 1.5px;
+            }
+
+            .welcome {
+                margin-top: 28px;
+                font-size: 12px;
+            }
+
+            .enter-button {
+                margin-top: 25px;
+                padding: 14px 20px;
+                min-width: 185px;
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
+
+            .footer {
+                bottom: 18px;
+                font-size: 9px;
+                letter-spacing: 2px;
+            }
+
+            .glow {
+                width: 250px;
+                height: 250px;
+                filter: blur(100px);
+            }
+        }
+
+        @media (max-height: 600px) {
+            .intro {
+                transform: scale(0.85);
+            }
+
+            .small-label {
+                margin-bottom: 15px;
+            }
+
+            .welcome {
+                margin-top: 20px;
+            }
+
+            .enter-button {
+                margin-top: 20px;
+            }
+
+            .footer {
+                bottom: 10px;
+            }
+        }
+
+        /* Respect reduced-motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .small-label,
+            .description,
+            .welcome,
+            .enter-button,
+            .footer {
+                opacity: 1;
+            }
+
+            .underline {
+                width: 75%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background" aria-hidden="true">
+        <div class="grid"></div>
+        <div class="glow one"></div>
+        <div class="glow two"></div>
+
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <main class="intro">
+        <p class="small-label">Welcome to my digital world</p>
+
+        <div class="logo-wrap">
+            <h1 class="logo">LAVEA</h1>
+            <div class="underline"></div>
+        </div>
+
+        <p class="description">
+            Web Development <span>•</span>
+            Video Editing <span>•</span>
+            Creative Design
+        </p>
+
+        <p class="welcome">
+            Ideas become <span>designs.</span> Designs become experiences.
+        </p>
+
+        <a href="index.html?showPortfolio=true" class="enter-button">
+            Explore Portfolio <span class="arrow">↗</span>
+        </a>
+    </main>
+
+    <footer class="footer">
+        DESIGNED WITH <span>♥</span> &amp; CREATIVITY
+    </footer>
+</body>
+</html>
